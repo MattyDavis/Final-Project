@@ -16,6 +16,8 @@
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Role</th>
+                <th>Notes</th>
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
@@ -24,6 +26,14 @@
                     <td>${user.username}</td>
                     <td>${user.firstname}</td>
                     <td>${user.lastname}</td>
+                    <td>${user.role.roleName}</td>
+                    <td>
+                        <ul>
+                        <c:forEach var="note" items="${user.noteList}">
+                            <li>${note.title}</li>
+                        </c:forEach>
+                        </ul>
+                    </td>
                     <td>
                         <form action="users" method="post" >
                             <input type="submit" value="Delete">
@@ -62,7 +72,7 @@
                 last name: <input type="text" name="lastname" value="${selectedUser.lastname}"><br>
                 password: <input type="password" name="password" value="${selectedUser.password}"><br>
                 email: <input type="email" name="email" value="${selectedUser.email}"><br>
-                active: <input type="checkbox" name="active" ${selectedUser.active == 1 ? "checked" : ""}><br>
+                active: <input type="checkbox" name="active" ${selectedUser.active ? "checked" : ""}><br>
                 <input type="hidden" name="action" value="edit">
                 <input type="submit" value="Save">
             </form>

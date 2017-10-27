@@ -1,6 +1,7 @@
 package businesslogic;
 
 import dataaccess.UserDB;
+import domainmodel.Role;
 import domainmodel.User;
 import java.util.List;
 
@@ -20,8 +21,13 @@ public class UserService {
         return userDB.getAll();
     }
 
-    public int update(String username, String password, String email, int active, String firstname, String lastname) throws Exception {
-        User user = new User(username, password, email, active, firstname, lastname);
+    public int update(String username, String password, String email, boolean active, String firstname, String lastname) throws Exception {
+        User user = userDB.getUser(username);
+        user.setPassword(password);
+        user.setActive(active);
+        user.setEmail(email);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
         return userDB.update(user);
     }
 
@@ -30,8 +36,10 @@ public class UserService {
         return userDB.delete(deletedUser);
     }
 
-    public int insert(String username, String password, String email, int active, String firstname, String lastname) throws Exception {
+    public int insert(String username, String password, String email, boolean active, String firstname, String lastname) throws Exception {
         User user = new User(username, password, email, active, firstname, lastname);
+        Role role = new Role(2);
+        user.setRole(role);
         return userDB.insert(user);
     }
 }
