@@ -58,6 +58,7 @@ public class AccountServlet extends HttpServlet {
         
         AccountService as = new AccountService();
         UserDB userDB = new UserDB();
+        
        
         if (as.loginHandler(username, password) != null) {
             try {
@@ -65,13 +66,14 @@ public class AccountServlet extends HttpServlet {
                 User user = userDB.getUser(username);
                 if(user.getActive()==true)
                 {
-                    if(user.getRole().equals(1))
+                    if(user.getRole().getRoleID().equals(1))
                     {
                         response.sendRedirect("admin");
                         return;
                     }
-                    if(user.getRole().equals(2))
+                    if(user.getRole().getRoleID().equals(2))
                     {
+                        session.setAttribute("userObject", user);
                         response.sendRedirect("notes");
                         return;
                     }
@@ -79,14 +81,14 @@ public class AccountServlet extends HttpServlet {
                 }
                 else if(user.getActive()==false)
                 {
-                    request.setAttribute("message", "Error, account is inactive.");
+                    request.setAttribute("errorMessage", "Error, account is inactive.");
                     getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
                 }
                 } catch (NotesDBException ex) {
                 Logger.getLogger(AccountServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-                    request.setAttribute("message", "Invalid.  Please try again.");
+                    request.setAttribute("errorMessage", "Invalid.  Please try again.");
                     getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
    

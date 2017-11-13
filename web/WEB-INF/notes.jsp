@@ -18,58 +18,44 @@
                 <th>Title</th>
                 <th>Contents</th>
             </tr>
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="note" items="${notes}">
                 <tr>
-                    <td>${user.username}</td>
-                    <td>${user.firstname}</td>
-                    <td>${user.lastname}</td>
-                    <td>${user.role.roleName}</td>
+                    <td>${note.noteID}</td>
+                    <td>${note.dateCreated}</td>
+                    <td>${note.title}</td>
+                    <td>${note.contents}</td>
                     <td>
-                        <ul>
-                        <c:forEach var="note" items="${user.noteList}">
-                            <li>${note.title}</li>
-                        </c:forEach>
-                        </ul>
-                    </td>
-                    <td>
-                        <form action="users" method="post" >
+                        <form action="notes" method="post" >
                             <input type="submit" value="Delete">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="selectedUsername" value="${user.username}">
+                            <input type="hidden" name="selectedNote" value="${note.noteID}">
                         </form>
                     </td>
                     <td>
-                        <form action="users" method="get">
+                        <form action="notes" method="get">
                             <input type="submit" value="Edit">
                             <input type="hidden" name="action" value="view">
-                            <input type="hidden" name="selectedUsername" value="${user.username}">
+                            <input type="hidden" name="selectedNote" value="${note.noteID}">
                         </form>
                     </td>
                 </tr>
             </c:forEach>
         </table>
-        <c:if test="${selectedUser == null}">
-            <h3>Add User</h3>
-            <form action="users" method="POST">
-                username: <input type="text" name="username"><br>
-                first name: <input type="text" name="firstname"><br>
-                last name: <input type="text" name="lastname"><br>
-                password: <input type="password" name="password"><br>
-                email: <input type="email" name="email"><br>
-                active: <input type="checkbox" name="active"><br>
+        <c:if test="${selectedNote == null}">
+            <h3>Add Note</h3>
+            <form action="notes" method="POST">
+                Note Title : <input type="text" name="title"><br>
+                Note : <input type="text" name="note"><br>
                 <input type="hidden" name="action" value="add">
-                <input type="submit" value="Save">
+                <input type="submit" value="Add Note">
             </form>
         </c:if>
-        <c:if test="${selectedUser != null}">
-            <h3>Edit User</h3>
-            <form action="users" method="POST">
-                username: <input type="text" name="username" value="${selectedUser.username}" readonly><br>
-                first name: <input type="text" name="firstname" value="${selectedUser.firstname}"><br>
-                last name: <input type="text" name="lastname" value="${selectedUser.lastname}"><br>
-                password: <input type="password" name="password" value="${selectedUser.password}"><br>
-                email: <input type="email" name="email" value="${selectedUser.email}"><br>
-                active: <input type="checkbox" name="active" ${selectedUser.active ? "checked" : ""}><br>
+        <c:if test="${selectedNote != null}">
+            <h3>Edit Note</h3>
+            <form action="notes" method="POST">
+                Note ID: <input type="text" name="id" value="${selectedNote.noteID}" readonly><br>
+                Note Title : <input type="text" name="title" value="${selectedNote.title}"><br>
+                Note : <input type="text" name="note" value="${selectedNote.contents}"><br>
                 <input type="hidden" name="action" value="edit">
                 <input type="submit" value="Save">
             </form>
