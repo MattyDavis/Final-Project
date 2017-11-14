@@ -83,9 +83,9 @@ public class NotesServlet extends HttpServlet {
                 String selectedNote = request.getParameter("selectedNote");
                 noteService.delete(Integer.parseInt(selectedNote));
             } else if (action.equals("edit")) {
-                noteService.update(Integer.parseInt(id),title,note);
+                noteService.update(Integer.parseInt(id),title,note,user);
             } else if (action.equals("add")) {
-                noteService.insert(note,title,user);
+                noteService.insert(title,note,user);
             }
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");

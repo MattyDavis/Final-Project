@@ -31,8 +31,8 @@ public class NoteService {
         return notesDB.getAll();
     }
 
-    public int update(int noteId,String title,String comments) throws Exception {
-        Note note = new Note(noteId,new Date(),title,comments);
+    public int update(int noteId,String title,String comments,User user) throws Exception {
+        Note note = new Note(noteId,title,comments,user);
         return notesDB.update(note);
     }
 
@@ -43,6 +43,6 @@ public class NoteService {
     }
 
     public int insert(String title,String comments,User user) throws Exception {
-        return notesDB.insert(new Note(0,new Date(),title,comments,user));
+        return notesDB.insert(new Note(0,title,comments,user));
     }
 }

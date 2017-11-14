@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +25,7 @@ public class UserServlet extends HttpServlet {
                 User user = us.get(selectedUsername);
                 request.setAttribute("selectedUser", user);
             } catch (Exception ex) {
-                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -33,7 +33,7 @@ public class UserServlet extends HttpServlet {
         try {
             users = us.getAll();
         } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("users", users);
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
@@ -70,7 +70,7 @@ public class UserServlet extends HttpServlet {
         try {
             users = us.getAll();
         } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("users", users);
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);

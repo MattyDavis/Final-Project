@@ -4,8 +4,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manage Users</title>
         <link rel="stylesheet" href="<c:url value='styles/notes.css' />" />
+        <title>Manage Users</title>
+        <a href="login?logout">Logout</a>
     </head>
     <body>
         <h1>Manage Users</h1>
@@ -22,6 +23,7 @@
                 <th>Edit</th>
             </tr>
             <c:forEach var="user" items="${users}">
+                <c:if test = "${user.role.roleName!= 'admin'}">
                 <tr>
                     <td>${user.username}</td>
                     <td>${user.firstname}</td>
@@ -35,25 +37,26 @@
                         </ul>
                     </td>
                     <td>
-                        <form action="users" method="post" >
+                        <form action="admin" method="post" >
                             <input type="submit" value="Delete">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="selectedUsername" value="${user.username}">
                         </form>
                     </td>
                     <td>
-                        <form action="users" method="get">
+                        <form action="admin" method="get">
                             <input type="submit" value="Edit">
                             <input type="hidden" name="action" value="view">
                             <input type="hidden" name="selectedUsername" value="${user.username}">
                         </form>
                     </td>
                 </tr>
+                </c:if>
             </c:forEach>
         </table>
         <c:if test="${selectedUser == null}">
             <h3>Add User</h3>
-            <form action="users" method="POST">
+            <form action="admin" method="POST">
                 username: <input type="text" name="username"><br>
                 first name: <input type="text" name="firstname"><br>
                 last name: <input type="text" name="lastname"><br>
@@ -66,7 +69,7 @@
         </c:if>
         <c:if test="${selectedUser != null}">
             <h3>Edit User</h3>
-            <form action="users" method="POST">
+            <form action="admin" method="POST">
                 username: <input type="text" name="username" value="${selectedUser.username}" readonly><br>
                 first name: <input type="text" name="firstname" value="${selectedUser.firstname}"><br>
                 last name: <input type="text" name="lastname" value="${selectedUser.lastname}"><br>

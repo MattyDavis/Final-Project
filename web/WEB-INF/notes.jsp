@@ -4,14 +4,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manage Notes</title>
         <link rel="stylesheet" href="<c:url value='styles/notes.css' />" />
+        <title>Manage Notes</title>
     </head>
     <body>
         <h1>Manage Notes</h1>
+        <a href="login?logout">Logout</a>
+        <a href="login?account">Manage Account</a>
         <h2>Notes:</h2>
         <p>${errorMessage}</p>
-        <table>
+        <table border =>
             <tr>
                 <th>Note ID</th>
                 <th>Date Created</th>

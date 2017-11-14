@@ -35,6 +35,8 @@ public class AccountServlet extends HttpServlet {
         if (request.getParameter("logout") != null) {
             HttpSession session = request.getSession();
             session.invalidate();
+            request.setAttribute("errorMessage", "Logged out");
+            
         }
         
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -51,7 +53,7 @@ public class AccountServlet extends HttpServlet {
         
         // validate
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
-            request.setAttribute("message", "Invalid.  Please try again.");
+            request.setAttribute("Error Message", "Invalid.  Please try again.");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
@@ -68,6 +70,7 @@ public class AccountServlet extends HttpServlet {
                 {
                     if(user.getRole().getRoleID().equals(1))
                     {
+                        session.setAttribute("userObject", user);
                         response.sendRedirect("admin");
                         return;
                     }
