@@ -12,7 +12,7 @@
         <div>
             <form action="login" method="post">
                 Username: <input type="text" name="username" value="${userName}"><br><br>
-                Password: <input type="text" name="password" value="${passwordValue}"><br>
+                Password: <input type="password" name="password" value="${passwordValue}"><br>
                 <input type="submit" value="Login">
             </form>
             ${errorMessage}

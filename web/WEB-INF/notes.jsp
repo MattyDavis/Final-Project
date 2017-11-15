@@ -1,16 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<c:url value='styles/notes.css' />" />
-        <title>Manage Notes</title>
-    </head>
+<%@ include file="/WEB-INF/header.jsp" %>
     <body>
         <h1>Manage Notes</h1>
-        <a href="login?logout">Logout</a>
-        <br>
         <a href="login?account">Manage Account</a>
         <h2>Notes:</h2>
         <p>${errorMessage}</p>
