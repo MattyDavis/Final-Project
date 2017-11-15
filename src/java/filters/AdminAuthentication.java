@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author awarsyle
- */
+
 public class AdminAuthentication implements Filter {
     
     private FilterConfig filterConfig = null;

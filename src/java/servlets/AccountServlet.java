@@ -150,6 +150,8 @@ public class AccountServlet extends HttpServlet {
                     request.setAttribute("errorMessage", "Invalid.  Please try again.");
                     getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
+                    request.setAttribute("errorMessage", "Invalid.  Please try again.");
+                    getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
    
     }
 

@@ -88,8 +88,14 @@ public class NotesServlet extends HttpServlet {
                 noteService.delete(Integer.parseInt(selectedNote));
                 }
             } else if (action.equals("edit")) {
-                noteService.update(Integer.parseInt(id),title,note,user);
+                Note userNote = noteService.get(Integer.parseInt(id));
+                if(userNote.getOwner().equals(user))
+                {
+                    noteService.update(Integer.parseInt(id),title,note,user); 
+                }
+            
             } else if (action.equals("add")) {
+                
                 noteService.insert(title,note,user);
             }
              
