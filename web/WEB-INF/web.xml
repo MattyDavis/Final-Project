@@ -4,6 +4,14 @@
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>filters.AuthenticationFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AdminAuthentication</filter-name>
+        <filter-class>filters.AdminAuthentication</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminAuthentication</filter-name>
+        <servlet-name>AdminServlet</servlet-name>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <servlet-name>AdminServlet</servlet-name>
@@ -12,6 +20,10 @@
         <filter-name>AuthenticationFilter</filter-name>
         <servlet-name>NotesServlet</servlet-name>
     </filter-mapping>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>util.EMFListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>servlets.AdminServlet</servlet-class>

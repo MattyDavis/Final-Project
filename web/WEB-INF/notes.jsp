@@ -10,6 +10,7 @@
     <body>
         <h1>Manage Notes</h1>
         <a href="login?logout">Logout</a>
+        <br>
         <a href="login?account">Manage Account</a>
         <h2>Notes:</h2>
         <p>${errorMessage}</p>

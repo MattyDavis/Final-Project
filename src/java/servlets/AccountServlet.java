@@ -6,6 +6,7 @@
 package servlets;
 
 import businesslogic.AccountService;
+import businesslogic.UserService;
 import dataaccess.NotesDBException;
 import dataaccess.UserDB;
 import domainmodel.User;
@@ -32,12 +33,30 @@ public class AccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("userObject");
         if (request.getParameter("logout") != null) {
-            HttpSession session = request.getSession();
+            session = request.getSession();
             session.invalidate();
             request.setAttribute("errorMessage", "Logged out");
-            
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return;
         }
+        if ((request.getParameter("account") != null)||user!=null) {
+            UserService us = new UserService();
+            
+            String username = (String)session.getAttribute("username");
+            try {
+                user = us.get(username);
+                session.setAttribute("selectedUser", user);
+                session.setAttribute("user", user);
+            } catch (Exception ex) {
+                Logger.getLogger(AccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);    
+        }
+        
         
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
@@ -47,7 +66,44 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        
+        User userEdit = (User)session.getAttribute("userObject");
+        if(userEdit!=null)
+        {
+            String action = request.getParameter("action");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String email = request.getParameter("email");
+            String firstname = request.getParameter("firstname");
+            String lastname = request.getParameter("lastname");
+            boolean active = request.getParameter("active") != null;
+
+            UserService us = new UserService();
+
+            try {
+                if (action.equals("edit")) {
+                    us.update(username, password, email, active, firstname, lastname);
+                    userEdit = us.get(username);
+                    session.setAttribute("userObject", userEdit);
+                    session.setAttribute("username", username);
+                    if(userEdit.getActive()==false)
+                    {
+                        session.invalidate();
+                        request.setAttribute("errorMessage", "Logged out");
+                        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                        return;
+                    }else
+                    {
+                        request.setAttribute("account", "account");
+                        response.sendRedirect("login");
+                        return;
+                    }
+          
+                }
+            } catch (Exception ex) {
+                request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
+            }
+       
+            }
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
