@@ -1,6 +1,8 @@
 <%@ include file="/WEB-INF/header.jsp" %>
     <body>
+        <a href="company?company">Manage Companies</a>
         <h1>Manage Users</h1>
+        <hr>
         <h2>Users</h2>
         <p>${errorMessage}</p>
         <table>
@@ -71,5 +73,10 @@
                 <input type="submit" value="Save">
             </form>
         </c:if>
+            
+            
+            <hr>
+            
+            
     </body>
 </html>

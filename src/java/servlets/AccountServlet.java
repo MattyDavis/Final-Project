@@ -136,6 +136,12 @@ public class AccountServlet extends HttpServlet {
                         response.sendRedirect("notes");
                         return;
                     }
+                    if(user.getRole().getRoleID().equals(3))
+                    {
+                        session.setAttribute("userObject", user);
+                        response.sendRedirect("company");
+                        return;
+                    }
                     
                 }
                 else if(user.getActive()==false)

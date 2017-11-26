@@ -6,6 +6,7 @@
     <class>domainmodel.Role</class>
     <class>domainmodel.Note</class>
     <class>domainmodel.User</class>
+    <class>domainmodel.Company</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")})
 public class User implements Serializable {
 
+    @JoinColumn(name = "Company", referencedColumnName = "CompanyID")
+    @ManyToOne(optional = false)
+    private Company company;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -169,6 +173,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "domainmodel.User[ username=" + username + " ]";
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
     
 }
