@@ -9,13 +9,14 @@
             <tr>
                 <th>Company ID</th>
                 <th>Company Name</th>
+                <th>Employees</th>
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
             <c:forEach var="company" items="${companies}">
                 <tr>
-                    <td>${company.CompanyID}</td>
-                    <td>${company.CompanyName}</td>
+                    <td>${company.companyID}</td>
+                    <td>${company.companyName}</td>
                     <td>
                         <ul>
                         <c:forEach var="user" items="${company.userList}">
@@ -24,17 +25,17 @@
                         </ul>
                     </td>
                     <td>
-                        <form action="admin" method="post" >
+                        <form action="company" method="post" >
                             <input type="submit" value="Delete">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="selectedCompanyName" value="${company.CompanyName}">
+                            <input type="hidden" name="selectedCompanyName" value="${company.companyID}">
                         </form>
                     </td>
                     <td>
-                        <form action="admin" method="get">
+                        <form action="company" method="get">
                             <input type="submit" value="Edit">
                             <input type="hidden" name="action" value="view">
-                            <input type="hidden" name="selectedCompanyName" value="${company.CompanyName}">
+                            <input type="hidden" name="selectedCompanyName" value="${company.companyID}">
                         </form>
                     </td>
                 </tr>
@@ -42,7 +43,7 @@
         </table>
         <c:if test="${selectedCompany == null}">
             <h3>Add Company</h3>
-            <form action="admin" method="POST">
+            <form action="company" method="POST">
                 Company Name: <input type="text" name="companyname"><br>
                 <input type="hidden" name="action" value="add">
                 <input type="submit" value="Save">
@@ -50,8 +51,9 @@
         </c:if>
         <c:if test="${selectedCompany != null}">
             <h3>Edit Company</h3>
-            <form action="admin" method="POST">
-                Company Name: <input type="text" name="username" value="${selectedCompany.CompanyName}" readonly><br>
+            <form action="company" method="POST">
+                Company Id <input type="text" name="id" value="${selectedCompany.companyID}" readonly><br>
+                Company Name: <input type="text" name="companyname" value="${selectedNote.companyName}"><br>
                 <input type="hidden" name="action" value="edit">
                 <input type="submit" value="Save">
             </form>

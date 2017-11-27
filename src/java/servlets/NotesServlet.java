@@ -10,7 +10,6 @@ import businesslogic.UserService;
 import domainmodel.Note;
 import domainmodel.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,7 +84,8 @@ public class NotesServlet extends HttpServlet {
                 noteService.delete(Integer.parseInt(selectedNote));
                 }
             } else if (action.equals("edit")) {
-                Note userNote = noteService.get(Integer.parseInt(id));
+                String selectedNote = request.getParameter("selectedNote");
+                Note userNote = noteService.get(Integer.parseInt(selectedNote));
                 if(userNote.getOwner().equals(user))
                 {
                     noteService.update(Integer.parseInt(id),title,note,user); 

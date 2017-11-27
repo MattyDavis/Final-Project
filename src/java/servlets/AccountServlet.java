@@ -9,6 +9,7 @@ import businesslogic.AccountService;
 import businesslogic.UserService;
 import dataaccess.NotesDBException;
 import dataaccess.UserDB;
+import domainmodel.Company;
 import domainmodel.User;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -81,7 +82,8 @@ public class AccountServlet extends HttpServlet {
 
             try {
                 if (action.equals("edit")) {
-                    us.update(username, password, email, active, firstname, lastname);
+                    Company company = userEdit.getCompany();
+                    us.update(username, password, email, active, firstname, lastname,company);
                     userEdit = us.get(username);
                     session.setAttribute("userObject", userEdit);
                     session.setAttribute("username", username);
@@ -139,7 +141,7 @@ public class AccountServlet extends HttpServlet {
                     if(user.getRole().getRoleID().equals(3))
                     {
                         session.setAttribute("userObject", user);
-                        response.sendRedirect("company");
+                        response.sendRedirect("companyAdmin");
                         return;
                     }
                     

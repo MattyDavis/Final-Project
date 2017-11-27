@@ -32,6 +32,32 @@ public class CompanyDB {
             em.close();
         }
     }
+    
+    public int getCompanyId(String companyname) throws NotesDBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+        int id = em.createNamedQuery("Company.findByCompanyName").setParameter("companyName", companyname).getFirstResult();
+            return id;
+        } catch (Exception ex) {
+            Logger.getLogger(CompanyDB.class.getName()).log(Level.SEVERE, "Cannot read companies", ex);
+            throw new NotesDBException("Error getting Company");
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Company getCompany(int id) throws NotesDBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            Company company = em.find(Company.class, id);
+            return company;
+        } catch (Exception ex) {
+            Logger.getLogger(CompanyDB.class.getName()).log(Level.SEVERE, "Cannot read companies", ex);
+            throw new NotesDBException("Error getting Company");
+        } finally {
+            em.close();
+        }
+    }
 
     public int update(Company company) throws NotesDBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -65,19 +91,6 @@ public class CompanyDB {
         }
     }
 
-
-    public Company getCompany(String companyName) throws NotesDBException {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try {
-            Company company = em.find(Company.class, companyName);
-            return company;
-        } catch (Exception ex) {
-            Logger.getLogger(CompanyDB.class.getName()).log(Level.SEVERE, "Cannot read company", ex);
-            throw new NotesDBException("Error getting Company");
-        } finally {
-            em.close();
-        }
-    }
 
     public int delete(Company company) throws NotesDBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();

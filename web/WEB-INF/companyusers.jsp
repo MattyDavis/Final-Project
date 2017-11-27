@@ -1,9 +1,8 @@
 <%@ include file="/WEB-INF/header.jsp" %>
     <body>
-        <a href="company?company">Manage Companies</a>
         <h1>Manage Users</h1>
         <hr>
-        <h2>Users</h2>
+        <h2>Users for ${companyName}</h2>
         <p>${errorMessage}</p>
         <table>
             <tr>
@@ -55,13 +54,6 @@
                 last name: <input type="text" name="lastname"><br>
                 password: <input type="password" name="password"><br>
                 email: <input type="email" name="email"><br>
-                <select name="companylist">
-                    <c:forEach items="${companies}" var="company">
-                        <option value="${company.companyID}" name ="nameCompany">
-                         ${company.companyName}       
-                        </option>
-                        </c:forEach>
-                </select>
                 active: <input type="checkbox" name="active"><br>
                 <input type="hidden" name="action" value="add">
                 <input type="submit" value="Save">
@@ -75,13 +67,6 @@
                 last name: <input type="text" name="lastname" value="${selectedUser.lastname}"><br>
                 password: <input type="password" name="password" value="${selectedUser.password}"><br>
                 email: <input type="email" name="email" value="${selectedUser.email}"><br>
-                <select name="companylist">
-                    <c:forEach items="${companies}" var="company">
-                        <option value="${company.companyID}">
-                         ${company.companyName}       
-                        </option>
-                        </c:forEach>
-                </select>
                 active: <input type="checkbox" name="active" ${selectedUser.active ? "checked" : ""}><br>
                 <input type="hidden" name="action" value="edit">
                 <input type="submit" value="Save">

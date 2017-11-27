@@ -1,5 +1,7 @@
 package dataaccess;
 
+import domainmodel.Company;
+import domainmodel.Note;
 import domainmodel.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -62,6 +64,23 @@ public class UserDB {
         } finally {
             em.close();
         }
+    }
+    
+    public List<User> getCompanyUsers(Company company) throws Exception
+    {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        
+        try {
+            List<User> users = em.createNamedQuery("Note.findByOwner").setParameter("company", company).getResultList();
+            return users;
+        } catch (Exception ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            
+        } finally {
+            em.close();
+        }
+        return null;
     }
 
     /**

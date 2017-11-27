@@ -15,6 +15,9 @@
                 Password: <input type="password" name="password" value="${passwordValue}"><br>
                 <input type="submit" value="Login">
             </form>
+                <br>
+                <br>
+                <a href="register?register">Not yet a member? Click here to register.</a>
             ${errorMessage}
             ${logout}
 

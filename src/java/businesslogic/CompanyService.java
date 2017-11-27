@@ -11,23 +11,35 @@ public class CompanyService {
     public CompanyService() {
         companyDB = new CompanyDB();
     }
+    
 
-    public Company get(String company) throws Exception {
-        return companyDB.getCompany(company);
+    
+    public int getCompanyID(String name) throws Exception
+    {
+        return companyDB.getCompanyId(name);
     }
+    
+    public Company getCompany(int id) throws Exception
+    {
+        return companyDB.getCompany(id);
+    }
+    
+        
+    
+
 
     public List<Company> getAll() throws Exception {
         return companyDB.getAll();
     }
 
-    public int update(String companyName) throws Exception {
-        Company company = companyDB.getCompany(companyName);
-        company.setCompanyName(companyName);
+    public int update(int companyId, String companyName) throws Exception {
+        
+        Company company = new Company(companyId,companyName);
         return companyDB.update(company);
     }
 
-    public int delete(String companyName) throws Exception {
-        Company deletedCompany = companyDB.getCompany(companyName);
+    public int delete(int id) throws Exception {
+        Company deletedCompany = companyDB.getCompany(id);
         return companyDB.delete(deletedCompany);
     }
 

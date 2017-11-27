@@ -6,7 +6,9 @@
 package servlets;
 
 import businesslogic.CompanyService;
+import businesslogic.UserService;
 import domainmodel.Company;
+import domainmodel.User;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,7 +45,9 @@ public class CompanyServlet extends HttpServlet {
         if (action != null && action.equals("view")) {
             String selectedCompanyName = request.getParameter("selectedCompanyName");
             try {
-                Company company = cs.get(selectedCompanyName);
+                Company company = cs.getCompany(Integer.parseInt(selectedCompanyName));
+                
+                
                 request.setAttribute("selectedCompany", company);
             } catch (Exception ex) {
                 Logger.getLogger(CompanyServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +61,8 @@ public class CompanyServlet extends HttpServlet {
             Logger.getLogger(CompanyServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("companies", companies);
-        getServletContext().getRequestDispatcher("/WEB-INF/company.jsp").forward(request, response);    }
+        getServletContext().getRequestDispatcher("/WEB-INF/company.jsp").forward(request, response);    
+    }
         
 
 
@@ -67,6 +72,39 @@ public class CompanyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        String companyName = request.getParameter("companyname");
+
+
+        CompanyService cs = new CompanyService();
+       
+        
+
+        try {
+            if (action.equals("delete")) {
+                String selectedCompany = request.getParameter("selectedCompanyName");
+                cs.delete(Integer.parseInt(selectedCompany));
+              
+            } else if (action.equals("edit")) {
+                
+                cs.update(Integer.parseInt(id),companyName);
+            } else if (action.equals("add")) {
+                cs.insert(companyName);
+            }
+        } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
+        }
+        
+        List<Company> companies = null;
+        try {
+            companies = cs.getAll();
+        } catch (Exception ex) {
+            Logger.getLogger(CompanyServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("companies", companies);
+        getServletContext().getRequestDispatcher("/WEB-INF/company.jsp").forward(request, response);
       
     }
 

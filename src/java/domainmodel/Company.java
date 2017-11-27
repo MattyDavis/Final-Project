@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
     , @NamedQuery(name = "Company.findByCompanyID", query = "SELECT c FROM Company c WHERE c.companyID = :companyID")
-    , @NamedQuery(name = "Company.findByCompanyName", query = "SELECT c FROM Company c WHERE c.companyName = :companyName")})
+    , @NamedQuery(name = "Company.findByCompanyName", query = "SELECT c FROM Company c WHERE c.companyName = :companyName")
+    , })
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +46,8 @@ public class Company implements Serializable {
     private String companyName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<User> userList;
+    
+    public Company(){}
 
     public Company(String companyName) {
         
